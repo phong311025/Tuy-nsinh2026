@@ -1,0 +1,6 @@
+{
+  "name": "AOF Admission Calculator - Công cụ tính điểm Học viện Tài chính",
+  "description": "Ứng dụng tính điểm xét tuyển vào Học viện Tài chính dựa trên các phương thức tuyển sinh mới nhất, quy đổi điểm IELTS và so sánh với điểm chuẩn, chỉ tiêu các năm.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

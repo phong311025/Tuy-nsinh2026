@@ -1,0 +1,129 @@
+1
+Công thức tổng quát để tính Điểm xét tuyển (ĐXT) cho Phương thức 2 (Xét tuyển kết hợp) là gì?
+ĐXT = Điểm môn 1 + Điểm môn 2 + Điểm môn 3 + Điểm ưu tiên (nếu có). Trong đó, Môn 1, 2, 3 được xác định tùy theo thí sinh thuộc các nhóm:
+- Nhóm 1: Học bạ + Điểm quy đổi thành tích của học sinh (Dành cho các thí sinh có IELTS từ 7.0 trở lên, TOEFL iBT đạt từ 100 điểm, SAT đạt từ 1450 điểm trở lên và giải HSG)
+- Nhóm 2: Điểm thi THPT môn Toán năm 2026 + học bạ TBC của tổ hợp 3 môn cao nhất + điểm quy đổi thành tích học tập giải HSG cấp Tỉnh, IELTS
+- Nhóm 3: Điểm thi THPT môn Toán + học bạ + điểm thi THPT môn cao nhất trong các môn Vật lý, Hóa học, Ngữ văn, Tiếng Anh, Tin học.
+
+2
+Điểm môn 1 của Nhóm 2 và Nhóm 3 (Phương thức 2) có bắt buộc phải lấy điểm thi THPT không?
+Có. Điểm môn 1 của cả Nhóm 2 và Nhóm 3 bắt buộc là điểm thi tốt nghiệp THPT năm 2026 của môn Toán. Nếu thí sinh không có điểm thi môn Toán năm 2026 thì không thể xét tuyển theo hai nhóm này.
+
+3
+Thí sinh đạt giải Nhất cuộc thi học sinh giỏi cấp Tỉnh môn Địa lý có được xét tuyển Phương thức 2 không?
+Không. Theo quy định tại Thông tin tuyển sinh 2026, Học viện chỉ chấp nhận điểm quy đổi từ giải học sinh giỏi (HSG) cấp Tỉnh/Thành phố đối với các môn: Toán, Vật lý, Hóa học, Tin học, Tiếng Anh và Ngữ văn.
+
+4
+Quy trình tính Điểm môn 2 nếu thí sinh muốn dùng tổ hợp D07 (Toán, Hóa, Anh) để xét tuyển PT2 nhóm 3?
+Điểm môn 2 (D07) = (TBC học bạ 3 năm môn Toán + TBC học bạ 3 năm môn Hóa học + TBC học bạ 3 năm môn Tiếng Anh) chia cho 3. Thí sinh nên so sánh kết quả này với các tổ hợp khác để chọn điểm cao nhất.
+
+5
+Em định dùng PT2 nhóm 2 để xét tuyển nhưng em đang có cả chứng chỉ IELTS 6.0 và đạt giải Ba HSG tỉnh môn Toán thì được tính điểm quy đổi như thế nào?
+Thí sinh được quyền lựa chọn thành tích có mức quy đổi cao nhất để làm Điểm môn 3. Trong trường hợp này, IELTS 6.0 quy đổi được 9.25 điểm, còn giải Ba HSG tỉnh quy đổi được 9.0 điểm. Do đó, thí sinh nên sử dụng điểm quy đổi từ IELTS (9.25).
+
+6
+Điều kiện về học lực để thí sinh được nộp hồ sơ xét tuyển vào Học viện Tài chính năm 2026?
+Thí sinh thuộc diện xét tuyển theo Phương thức 1 và Phương thức 2 (trừ Nhóm dành cho giải quốc gia) phải đạt học lực loại Tốt trong cả 3 năm học THPT.
+
+7
+Cách tính điểm của Phương thức 2: Xét tuyển kết hợp - Nhóm 1
+Điểm môn 1: Điểm TBC kết quả học tập cả năm lớp 10, 11, 12 của môn Toán.
+Điểm môn 2: Điểm TBC kết quả học tập của môn cao nhất trong các môn Ngữ văn, Vật lý, Hóa học, Tin học.
+Điểm môn 3: Điểm quy đổi thành tích vượt trội.
+
+8
+Cách tính điểm của Phương thức 2: Xét tuyển kết hợp - Nhóm 2
+Điểm môn 1: Điểm thi tốt nghiệp THPT năm 2026 môn Toán.
+Điểm môn 2: Điểm TBC kết quả học tập cả năm lớp 10, 11, 12 cao nhất của tổ hợp 3 môn.
+Điểm môn 3: Điểm quy đổi thành tích học tập, chứng chỉ Tiếng Anh quốc tế.
+
+9
+Cách tính điểm của Phương thức 2: Xét tuyển kết hợp - Nhóm 3
+Điểm môn 1: Điểm thi tốt nghiệp THPT năm 2026 môn Toán.
+Điểm môn 2: Điểm TBC kết quả học tập cả năm lớp 10, 11, 12 cao nhất của tổ hợp 3 môn.
+Điểm môn 3: Điểm thi tốt nghiệp THPT năm 2026 cao nhất trong các môn Vật lý, Hóa học, Ngữ văn, Tiếng Anh, Tin học.
+
+10
+Em đạt chứng chỉ IELTS 7.0, nếu em xét vào ngành Ngôn ngữ Anh thì điểm quy đổi có cao hơn các ngành khác không?
+Không. IELTS 7.0 được quy đổi chung là 9.75 điểm cho tất cả các ngành trong Học viện.
+
+11
+Khi nộp hồ sơ xét tuyển Phương thức 2, thí sinh có nhiều chứng chỉ IELTS và SAT thì nộp loại nào?
+Nên nộp bản sao chứng thực của loại chứng chỉ mang lại mức điểm cao nhất.
+
+12
+Học viện có yêu cầu điểm môn Toán trong tổ hợp phải đạt mức tối thiểu không?
+Không có quy định điểm tối thiểu cho môn Toán trong tổ hợp xét tuyển, trừ trường hợp thí sinh bị điểm liệt (<=1.0 điểm).
+
+13
+Bảng điểm quy đổi kết quả học tập theo thang điểm 10
+Quy đổi 9,0: Giải Ba Tỉnh/TP
+Quy đổi 9,5: Giải Nhì Tỉnh/TP
+Quy đổi 10: Giải Khuyến khích QG, Giải Nhất Tỉnh/TP
+
+14
+Bảng điểm quy đổi chứng chỉ Tiếng Anh quốc tế theo Thang điểm 10
+9.0 điểm: IELTS 5.5, TOEFL iBT 55-69, SAT 1050-1199, ACT 22-26
+9.25 điểm: IELTS 6.0, TOEFL iBT 70-79, SAT 1200-1299, ACT 27-28
+9.5 điểm: IELTS 6.5, TOEFL iBT 80-89, SAT 1300-1399, ACT 29-30
+9.75 điểm: IELTS 7.0, TOEFL iBT 90-99, SAT 1400-1499, ACT 31-32
+10 điểm: IELTS 7.5+, TOEFL iBT 100+, SAT 1500+, ACT 33+
+
+15
+Những môn học nào được sử dụng để lập thành tổ hợp xét tuyển học bạ tại Học viện năm 2026?
+Các tổ hợp (A00, A01, D01, D07, X06, X26). Các môn: Toán, Vật lý, Hóa học, Ngữ văn, Tiếng Anh, Tin học.
+
+16
+Em tính ĐXT được 18.99 điểm, Học viện có làm tròn lên 19.0?
+Không. Học viện lấy điểm đến 2 chữ số thập phân và không làm tròn lên.
+
+17
+Một thí sinh có được nộp hồ sơ xét tuyển cho nhiều Nhóm trong Phương thức 2 không?
+Có. Thí sinh có thể đăng ký xét tuyển ở cả nhiều nhóm để tăng cơ hội trúng tuyển.
+
+18
+Điểm thi môn Tin học trong kỳ thi tốt nghiệp THPT 2026 có được dùng để xét tuyển không?
+Có. Năm 2026, môn Tin học đã được đưa vào các tổ hợp xét tuyển mới (X06, X26).
+
+19
+Trường em không dạy môn Tin học, em có thể lấy điểm trung bình môn Công nghệ thay thế để xét tổ hợp X26 không?
+Không.
+
+20
+Học viện có xét tuyển dựa trên kết quả kỳ thi Đánh giá năng lực của Đại học Quốc gia không?
+Không. Hiện tại chưa có quy định xét tuyển dựa trên ĐGNL.
+
+21
+Trong Phương thức 2, thí sinh có được dùng điểm quy đổi Tiếng Anh để thay thế môn học khác không?
+Không. Chỉ thay thế cho điểm TBC học tập của môn Tiếng Anh trong các tổ hợp có môn này.
+
+23
+Khác với Nhóm 1 dùng học bạ, Điểm môn 1 của Nhóm 2 và Nhóm 3 bắt buộc phải sử dụng điểm thi thực tế môn Toán THPT năm 2026.
+
+24
+Thí sinh xét tuyển PT2 nhóm 2 với tổ hợp A00 thì tính Điểm môn 2 như thế nào?
+Điểm môn 2 (A00) = (TBC 3 năm Toán + TBC 3 năm Vật lý + TBC 3 năm Hóa học)/3. Tổ hợp điểm môn 2 không bắt buộc trùng tổ hợp thi THPT.
+
+26
+Phương thức 3 (Xét điểm thi THPT) có tính điểm theo tổ hợp không?
+Có.
+
+27
+Cách tính điểm khi thí sinh dùng chứng chỉ IELTS để thay thế điểm thi môn Tiếng Anh trong PT3?
+Lấy điểm quy đổi IELTS. Nếu điểm thi THPT Tiếng Anh cao hơn thì lấy điểm cao nhất.
+
+30
+Điểm xét tuyển của Học viện được lấy đến mấy chữ số thập phân?
+Lấy đến 2 chữ số thập phân.
+
+(THỜI GIAN ĐĂNG KÝ VÀ HỒ SƠ)
+Thời gian đăng ký trực tuyến dự kiến: 28/05/2026 đến hết ngày 07/06/2026 tại https://xettuyen.hvtc.edu.vn
+Đăng ký trên hệ thống Bộ GD&ĐT: 02/07/2026 đến 17h00 ngày 14/07/2026
+Lệ phí xét tuyển các phương thức riêng: 100.000 VNĐ / hồ sơ.
+Hạn nộp hồ sơ xét tuyển thẳng: trước 17h00 ngày 20/06/2026.
+Công bố kết quả sơ tuyển: trước 17h00 ngày 22/06/2026.
+Xác nhận nhập học: trước 17h00 ngày 21/08/2026.
+Hỗ trợ thắc mắc: Các vấn đề không rõ, cần liên hệ fanpage Học viện Tài chính hoặc Ban phát thanh Học viện Tài chính hoặc gọi Hotline.
+Khung thời gian đăng ký trực tuyến hệ thống Bộ GD&ĐT: từ 02/07/2026 đến 17h00 ngày 14/07/2026.
+Hồ sơ xét tuyển PT2 (kết hợp) bao gồm: Giấy khai sinh, Học bạ THPT, Minh chứng Tiếng Anh, Minh chứng nộp lệ phí, Ưu tiên. Nộp bản scan trên portal. Không nhận trực tiếp.
+Nhập sai thông tin trên cổng Bộ GD&ĐT sẽ bị huỷ kết quả trúng tuyển. Lệ phí Bộ sẽ theo quy định của Bộ.
