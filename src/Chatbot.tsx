@@ -100,8 +100,8 @@ export function Chatbot() {
       const errorMsg: ChatMessage = { 
         id: (Date.now() + 1).toString(), 
         role: 'bot', 
-        content: errorDetail.includes('GEMINI_API_KEY') 
-          ? `Lỗi cấu hình: ${errorDetail}` 
+        content: errorDetail.includes('API Key') 
+          ? errorDetail 
           : `Xin lỗi, có sự cố khi kết nối với trí tuệ nhân tạo. ${errorDetail ? '(Lỗi: ' + errorDetail.substring(0, 150) + '...)' : 'Vui lòng thử lại sau.'}` 
       };
       setMessages(prev => [...prev, errorMsg]);

@@ -29,6 +29,13 @@ async function startServer() {
 
   app.use(express.json());
 
+  app.get("/api/debug", (req, res) => {
+    res.json({
+      apiKeyDefault: process.env.GEMINI_API_KEY,
+      apiKeyType: typeof process.env.GEMINI_API_KEY,
+    });
+  });
+
   // API routes FIRST
   app.post("/api/chat", async (req, res) => {
     try {
@@ -41,7 +48,7 @@ async function startServer() {
       const genAI = new GoogleGenAI({ apiKey });
 
       const responseStream = await genAI.models.generateContentStream({
-        model: 'gemini-3.1-pro-preview',
+        model: 'gemini-2.0-flash',
         contents: [...history, { role: 'user', parts: [{ text: userMsg }] }],
         config: {
           systemInstruction: systemInstruction,
@@ -60,7 +67,11 @@ async function startServer() {
       res.end();
     } catch (error: any) {
       console.error("API Chat Error:", error);
-      res.status(500).json({ error: error.message || "Lỗi giao tiếp với AI" });
+      let errorMsg = error.message || "Lỗi giao tiếp với AI";
+      if (errorMsg.includes("API key not valid") || errorMsg.includes("API_KEY_INVALID")) {
+        errorMsg = "API Key bạn cấu hình không hợp lệ. Để sử dụng AI miễn phí không cần cấu hình, vui lòng vào **Settings > Secrets** và xóa secret `GEMINI_API_KEY` đi, sau đó tải lại trang.";
+      }
+      res.status(500).json({ error: errorMsg });
     }
   });
 
