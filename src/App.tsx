@@ -18,7 +18,7 @@ import {
 import { MAJORS, IELTS_CONVERSION, HSG_CONVERSION, Major, ADMISSION_METHODS } from './constants';
 
 import { Chatbot } from './Chatbot';
-import logo from './logo.png';
+import logo from './logo_hvtc.png';
 
 export default function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);

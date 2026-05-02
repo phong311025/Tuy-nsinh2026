@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, User, Trash2, Copy, Check, Sparkles, HelpCircle, RefreshCw, Facebook } from 'lucide-react';
 import Markdown from 'react-markdown';
-import logo from './logo.png';
+import logo from './logo_hvtc.png';
 
 interface ChatMessage {
   id: string;
