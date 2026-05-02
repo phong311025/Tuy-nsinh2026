@@ -11,7 +11,7 @@ export interface Major {
   quota2025: number;
   quota2026: number;
   isLanguageOrCCQT: boolean;
-  group: 'CH' | 'CCQT' | 'DDP'; // Chuẩn, Chứng chỉ quốc tế, Dual Degree
+  group: 'CH' | 'CCQT'; // Chuẩn, Chứng chỉ quốc tế
   links?: { name: string, url: string }[];
 }
 
@@ -69,10 +69,7 @@ export const MAJORS: Major[] = [
   { id: '31', code: '7340405 - HC04.01', name: 'Tin học tài chính kế toán', benchmark2025: 25.07, quota2025: 90, quota2026: 90, isLanguageOrCCQT: false, group: 'CH', links: [{name: 'Tin học tài chính', url: 'https://youtu.be/pnkRjrOZupE?si=nBEKaWfmgwME00Q0'}] },
   { id: '32', code: '7380101 - HC17.01', name: 'Luật kinh doanh', benchmark2025: 25.12, quota2025: 50, quota2026: 80, isLanguageOrCCQT: false, group: 'CH', links: [{name: 'Luật Kinh doanh', url: 'https://youtu.be/ENPO8gUW4rc?si=6e33eb0VGJcztrm9'}] },
   { id: '33', code: '7460108 - HC14.01', name: 'Khoa học dữ liệu trong Tài chính', benchmark2025: 25.52, quota2025: 50, quota2026: 80, isLanguageOrCCQT: false, group: 'CH', links: [{name: 'Khoa học dữ liệu trong Tài chính', url: 'https://youtu.be/oco-iV0Vdac?si=lwVHKNVYdWBrmfFS'}] },
-  { id: '34', code: '7480201 - HC13.01', name: 'Trí tuệ nhân tạo trong TCKT', benchmark2025: 24.97, quota2025: 50, quota2026: 80, isLanguageOrCCQT: false, group: 'CH', links: [{name: 'AI trong Tài chính kế toán', url: 'https://youtu.be/XXbYf9R1iOM?si=PDGjbwr-HaYO4s48'}] },
-  
-  // DDP
-  { id: '35', code: '7340201 - HC.DDP', name: 'Chương trình liên kết quốc tế DDP', benchmark2025: 24.00, quota2025: 120, quota2026: 120, isLanguageOrCCQT: true, group: 'DDP'}
+  { id: '34', code: '7480201 - HC13.01', name: 'Trí tuệ nhân tạo trong TCKT', benchmark2025: 24.97, quota2025: 50, quota2026: 80, isLanguageOrCCQT: false, group: 'CH', links: [{name: 'AI trong Tài chính kế toán', url: 'https://youtu.be/XXbYf9R1iOM?si=PDGjbwr-HaYO4s48'}] }
 ];
 
 // Cập nhật bảng quy đổi IELTS cho năm 2026 (Page 6 PDF)

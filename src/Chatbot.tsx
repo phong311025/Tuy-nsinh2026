@@ -64,9 +64,38 @@ export function Chatbot() {
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const botMsgId = (Date.now() + 1).toString();
 
+      const rawHistory = messages.filter(m => m.id !== 'welcome' && m.id !== 'error').map(msg => ({
+        role: msg.role === 'bot' ? 'model' : 'user',
+        parts: [{ text: msg.content }]
+      }));
+      rawHistory.push({ role: 'user', parts: [{ text: userMsg.content }] });
+
+      const historyContents: any[] = [];
+      let currentRole: string | null = null;
+      let currentTextParts: string[] = [];
+      
+      for (const msg of rawHistory) {
+         if (msg.role === currentRole) {
+            currentTextParts.push(msg.parts[0].text);
+         } else {
+            if (currentRole) {
+               historyContents.push({ role: currentRole, parts: [{ text: currentTextParts.join('\n\n') }] });
+            }
+            currentRole = msg.role;
+            currentTextParts = [msg.parts[0].text];
+         }
+      }
+      if (currentRole) {
+         historyContents.push({ role: currentRole, parts: [{ text: currentTextParts.join('\n\n') }] });
+      }
+      
+      if (historyContents.length > 0 && historyContents[0].role !== 'user') {
+         historyContents.shift();
+      }
+
       const responseStream = await ai.models.generateContentStream({
-        model: 'gemini-3-flash-preview',
-        contents: userMsg.content,
+        model: 'gemini-2.5-flash',
+        contents: historyContents,
         config: {
           systemInstruction: systemInstruction,
           temperature: 0.2,
@@ -87,9 +116,10 @@ export function Chatbot() {
           );
         }
       }
-    } catch (err) {
+    } catch (err: any) {
+      console.error("Gemini API Error:", err);
       setIsWaiting(false);
-      const errorMsg: ChatMessage = { id: (Date.now() + 1).toString(), role: 'bot', content: 'Xin lỗi, hệ thống đang bận. Vui lòng thử lại sau.' };
+      const errorMsg: ChatMessage = { id: (Date.now() + 1).toString(), role: 'bot', content: `Xin lỗi, hệ thống đang bận. Vui lòng thử lại sau. ${err?.message ? '(Lỗi: ' + err.message + ')' : ''}` };
       setMessages(prev => [...prev, errorMsg]);
     } finally {
       setIsLoading(false);

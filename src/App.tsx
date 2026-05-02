@@ -370,8 +370,8 @@ export default function App() {
                         <div className="flex items-center gap-1.5 flex-wrap">
                           <span className="text-[9px] font-black text-slate-400 uppercase">{major.code}</span>
                           <span className={`text-[8px] font-black px-1.5 py-0.5 rounded uppercase ${
-                            major.group === 'CCQT' ? 'bg-orange-50 text-orange-600' : major.group === 'DDP' ? 'bg-purple-50 text-purple-600' : 'bg-blue-50 text-blue-600'
-                          }`}>{major.group === 'CCQT' ? 'Định hướng CCQT' : major.group === 'DDP' ? 'DDP (Quốc tế)' : 'Chuẩn (Đại trà)'}</span>
+                            major.group === 'CCQT' ? 'bg-orange-50 text-orange-600' : 'bg-blue-50 text-blue-600'
+                          }`}>{major.group === 'CCQT' ? 'Định hướng CCQT' : 'Chuẩn (Đại trà)'}</span>
                         </div>
                       </td>
                       <td className="p-3 lg:p-4 text-center align-middle">
@@ -443,8 +443,8 @@ export default function App() {
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-[9px] font-black text-slate-400 uppercase">{major.code}</span>
                         <span className={`text-[8px] font-black px-1.5 py-0.5 rounded uppercase ${
-                          major.group === 'CCQT' ? 'bg-orange-50 text-orange-600' : major.group === 'DDP' ? 'bg-purple-50 text-purple-600' : 'bg-blue-50 text-blue-600'
-                        }`}>{major.group === 'CCQT' ? 'Định hướng CCQT' : major.group === 'DDP' ? 'DDP (Quốc tế)' : 'Chuẩn (Đại trà)'}</span>
+                          major.group === 'CCQT' ? 'bg-orange-50 text-orange-600' : 'bg-blue-50 text-blue-600'
+                        }`}>{major.group === 'CCQT' ? 'Định hướng CCQT' : 'Chuẩn (Đại trà)'}</span>
                       </div>
                     </div>
 
