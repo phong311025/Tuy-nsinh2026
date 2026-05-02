@@ -11,13 +11,16 @@ import {
   XCircle, 
   Award,
   Youtube,
-  Landmark
+  Landmark,
+  Facebook,
+  Phone
 } from 'lucide-react';
 import { MAJORS, IELTS_CONVERSION, HSG_CONVERSION, Major, ADMISSION_METHODS } from './constants';
 
 import { Chatbot } from './Chatbot';
 
 export default function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [method, setMethod] = useState<'PT2' | 'PT3'>('PT3');
   const [pt2Group, setPt2Group] = useState<'N1' | 'N2' | 'N3'>('N1');
 
@@ -106,7 +109,7 @@ export default function App() {
       <header className="bg-aof-teal text-white px-4 md:px-8 py-3 flex flex-col sm:flex-row justify-between items-center border-b-4 border-aof-gold shadow-md shrink-0 gap-4" id="header">
         <a href="https://xettuyen.hvtc.edu.vn" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-center sm:text-left hover:opacity-90 transition-opacity" id="header_left">
           <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-inner shrink-0 overflow-hidden text-aof-teal" id="logo">
-            <img src="/logo.jpg" alt="HVTC Logo" className="w-full h-full object-contain p-0.5" />
+            <img src="/logo.png" alt="HVTC Logo" className="w-full h-full object-contain p-0.5" />
           </div>
           <div>
             <h1 className="text-xl md:text-2xl font-black tracking-tight leading-none" id="header_title">HỌC VIỆN TÀI CHÍNH</h1>
@@ -336,7 +339,7 @@ export default function App() {
         </aside>
 
         {/* Content: Results Table */}
-        <section className="md:col-span-12 lg:col-span-8 xl:col-span-9 flex flex-col h-full overflow-hidden min-h-[500px]" id="results_main">
+        <section className={`md:col-span-12 lg:col-span-8 xl:col-span-9 flex flex-col h-full overflow-hidden min-h-[500px] transition-all duration-300 ${isChatOpen ? 'lg:pr-[410px]' : ''}`} id="results_main">
           <div className="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col h-full overflow-hidden" id="table_card">
             <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50" id="table_header">
               <h2 className="text-sm font-black uppercase tracking-tight text-slate-800 flex items-center gap-2">
@@ -494,18 +497,47 @@ export default function App() {
               <strong className="uppercase">Hệ thống thông minh:</strong> 
               <span> Tự động lựa chọn tổ hợp môn thi cao điểm nhất để xét cho từng ngành. Tự động so sánh điểm Thi THPT và điểm kết hợp Xét chứng chỉ IELTS để đưa ra Điểm Xét Tuyển lớn nhất có thể của bạn. Thang điểm IELTS theo hướng dẫn tuyển sinh mới năm 2026.</span>
             </div>
+            
+            <a href="https://xettuyen.hvtc.edu.vn" target="_blank" rel="noopener noreferrer" className="p-4 bg-[#0e746b] border-t border-[#0b5c55] text-sm text-white font-bold leading-relaxed text-center hover:bg-[#0b5c55] transition-colors block uppercase tracking-wide" id="register_banner">
+              Đăng ký xét tuyển ngay
+            </a>
           </div>
         </section>
       </main>
 
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 left-4 md:left-6 flex flex-col gap-3 z-40">
+        <a href="https://www.facebook.com/groups/tuyensinhhvtc" target="_blank" rel="noopener noreferrer" className="w-[52px] h-[52px] bg-[#1a65f2] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:-translate-y-1 transition-all group" title="Group Tư vấn Tuyển sinh">
+          <Facebook className="w-7 h-7 group-hover:drop-shadow-md" />
+        </a>
+        <a href="tel:0961481086" className="w-[52px] h-[52px] bg-[#0bc14f] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:-translate-y-1 transition-all group" title="Hotline 0961.481.086">
+          <Phone className="w-7 h-7 group-hover:drop-shadow-md" />
+        </a>
+      </div>
+
+      {/* Help Section */}
+      <div className="w-full bg-slate-50 py-10 border-t border-slate-200 mt-auto shrink-0 flex flex-col items-center justify-center text-center px-4 relative z-10" id="help_section">
+        <p className="text-slate-600 text-[15px] font-medium mb-5">Cần trợ giúp thêm? Liên hệ ngay với chúng tôi:</p>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <a href="https://www.facebook.com/groups/tuyensinhhvtc" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-6 py-3 bg-blue-50/80 text-blue-600 rounded-full font-semibold hover:bg-blue-100 transition-colors border border-blue-200 shadow-sm text-sm">
+            <Facebook className="w-5 h-5" />
+            Group Tư vấn tuyển sinh Học viện Tài chính
+          </a>
+          <a href="tel:0961481086" className="flex items-center gap-2.5 px-6 py-3 bg-green-50/80 text-green-600 rounded-full font-semibold hover:bg-green-100 transition-colors border border-green-200 shadow-sm text-sm">
+            <Phone className="w-5 h-5" />
+            Hotline: 0961.481.086 - 0967.684.086
+          </a>
+        </div>
+      </div>
+
       {/* Footer Bar */}
-      <footer className="h-10 bg-slate-800 text-slate-400 px-4 md:px-8 flex justify-between items-center text-[10px] font-bold shrink-0 shadow-inner" id="app_footer">
+      <footer className="h-10 bg-slate-800 text-slate-400 px-4 md:px-8 flex justify-between items-center text-[10px] font-bold shrink-0 shadow-inner relative z-10" id="app_footer">
         <span className="uppercase tracking-widest opacity-80 truncate">© 2026 Học Viện Tài Chính - AOF</span>
         <div className="flex gap-4 md:gap-6 uppercase tracking-tighter shrink-0" id="footer_contact">
           <span className="flex items-center gap-1"><div className="w-1.5 h-1.5 bg-green-500 rounded-full" /> Hotline: 0961.48.10.10</span>
         </div>
       </footer>
-      <Chatbot />
+      <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
     </div>
   );
 }
