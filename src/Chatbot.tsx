@@ -91,18 +91,14 @@ export function Chatbot() {
       console.error("Gemini API Error details:", err);
       setIsWaiting(false);
       // Detailed error for debugging purposes since user is having issues
-      let errorDetail = "";
-      if (err instanceof Error) {
-        errorDetail = err.message;
-      } else if (typeof err === 'object') {
-        errorDetail = JSON.stringify(err);
-      }
+      let errorDetail = err?.message || String(err) || "";
+      
       const errorMsg: ChatMessage = { 
         id: (Date.now() + 1).toString(), 
         role: 'bot', 
-        content: errorDetail.includes('API Key') 
+        content: errorDetail.includes('API Key') || errorDetail.includes('GEMINI')
           ? errorDetail 
-          : `Xin lỗi, có sự cố khi kết nối với trí tuệ nhân tạo. ${errorDetail ? '(Lỗi: ' + errorDetail.substring(0, 150) + '...)' : 'Vui lòng thử lại sau.'}` 
+          : `Xin lỗi, có sự cố khi kết nối với trí tuệ nhân tạo. (Thông tin lỗi: ${errorDetail}) Vui lòng thử lại sau.` 
       };
       setMessages(prev => [...prev, errorMsg]);
     } finally {

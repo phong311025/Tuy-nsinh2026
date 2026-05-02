@@ -2,7 +2,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
-import { KNOWLEDGE_BASE } from "./src/knowledge.js";
+import { KNOWLEDGE_BASE } from "./src/knowledge.ts";
 
 const systemInstruction = `
 Bạn là Trợ lý Ảo Tuyển sinh Học viện Tài chính (AOF) năm 2026.
@@ -48,7 +48,7 @@ async function startServer() {
       const genAI = new GoogleGenAI({ apiKey });
 
       const responseStream = await genAI.models.generateContentStream({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-3.1-pro-preview',
         contents: [...history, { role: 'user', parts: [{ text: userMsg }] }],
         config: {
           systemInstruction: systemInstruction,
