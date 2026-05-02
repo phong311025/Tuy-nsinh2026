@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { 
   Calculator, 
   Search, 
@@ -18,7 +18,7 @@ import {
 import { MAJORS, IELTS_CONVERSION, HSG_CONVERSION, Major, ADMISSION_METHODS } from './constants';
 
 import { Chatbot } from './Chatbot';
-import logo from './logo_hvtc.png';
+import logo from './logo.png';
 
 export default function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -32,6 +32,18 @@ export default function App() {
 
   const [kv, setKv] = useState(0); 
   const [dt, setDt] = useState(0); 
+
+  useEffect(() => {
+    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (link) {
+      link.href = logo;
+    } else {
+      const newLink = document.createElement('link');
+      newLink.rel = 'icon';
+      newLink.href = logo;
+      document.head.appendChild(newLink);
+    }
+  }, []);
 
   const handleThpt = (key: string, value: string) => setThpt(p => ({ ...p, [key]: parseFloat(value) || 0 }));
   const handleHocba = (key: string, value: string) => setHocba(p => ({ ...p, [key]: parseFloat(value) || 0 }));

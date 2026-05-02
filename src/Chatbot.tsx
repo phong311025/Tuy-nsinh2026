@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, User, Trash2, Copy, Check, Sparkles, HelpCircle, RefreshCw, Facebook } from 'lucide-react';
 import Markdown from 'react-markdown';
-import logo from './logo_hvtc.png';
+import logo from './logo.png';
 
 interface ChatMessage {
   id: string;
@@ -57,41 +57,49 @@ export function Chatbot({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (v:
           parts: [{ text: msg.content }]
         }));
 
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          history,
-          text: text.trim()
-        })
-      });
-
-      if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error(err.error || `Lỗi máy chủ (${response.status})`);
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) {
+        throw new Error("Lỗi: Không tìm thấy GEMINI_API_KEY. Nếu bạn deploy lên GitHub Pages, hãy thêm biến môi trường GEMINI_API_KEY vào quá trình build (hoặc tạm nhập trực tiếp key vào source code nếu chỉ dùng thử).");
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error("Stream not available");
-      
-      const decoder = new TextDecoder('utf-8');
+      const { GoogleGenAI } = await import('@google/genai');
+      const ai = new GoogleGenAI({ apiKey });
+
+      const { KNOWLEDGE_BASE } = await import('./knowledge');
+      const systemInstruction = `Bạn là Trợ lý Ảo Tuyển sinh Học viện Tài chính (AOF) năm 2026.
+Bạn có nhiệm vụ cung cấp thông tin, hướng dẫn, và giải đáp TẤT CẢ các thắc mắc của thí sinh/phụ huynh liên quan đến quy chế tuyển sinh 2026 của Học viện Tài chính (HVTC).
+
+Dưới đây là TOÀN BỘ dữ liệu Tuyển Sinh 2026 chính thức của Học viện Tài chính. Bạn hãy sử dụng MỌI THÔNG TIN trong văn bản dưới đây để suy luận và trả lời câu hỏi một cách thông minh, chính xác nhất:
+
+${KNOWLEDGE_BASE}
+
+====== YÊU CẦU ĐỐI VỚI BẠN ======
+1. Dựa 100% vào thông tin được cung cấp ở trên để trả lời câu hỏi. Kết hợp thông tin để trả lời các tình huống cụ thể.
+2. Thái độ: Thân thiện, tôn trọng, nhiệt tình, chuyên nghiệp. Xưng "mình/trợ lý" và gọi người dùng là "bạn/em". Trình bày rõ ràng.
+3. Nếu thí sinh hỏi cách tính điểm, vui lòng tính toán mẫu giúp thí sinh dựa trên công thức của từng Phương thức / Nhóm.
+4. Chỉ khi nào bạn hoàn toàn KHÔNG CÓ BẤT CỨ THÔNG TIN NÀO, thì mới sử dụng câu: "Mình chưa được cập nhật thông tin này, vui lòng đặt câu hỏi tại [Group Tư vấn tuyển sinh Học viện Tài chính](https://www.facebook.com/groups/tuyensinhhvtc) hoặc gọi số Hotline 0961.481.086 hoặc 0967.684.086 để được hỗ trợ chính xác nhất nhé!"`;
+
+      const responseStream = await ai.models.generateContentStream({
+        model: 'gemini-3-flash-preview',
+        contents: [...history, { role: 'user', parts: [{ text }] }],
+        config: {
+          systemInstruction,
+          temperature: 0.2,
+        }
+      });
+
       let fullText = '';
       let initialized = false;
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        
-        const chunk = decoder.decode(value, { stream: true });
-        fullText += chunk;
-        
-        if (!initialized) {
-          setMessages(prev => [...prev, { id: botMsgId, role: 'bot', content: fullText, timestamp: Date.now() }]);
-          initialized = true;
-        } else {
-          setMessages(prev => prev.map(msg => msg.id === botMsgId ? { ...msg, content: fullText } : msg));
+      for await (const chunk of responseStream) {
+        if (chunk.text) {
+          fullText += chunk.text;
+          if (!initialized) {
+            setMessages(prev => [...prev, { id: botMsgId, role: 'bot', content: fullText, timestamp: Date.now() }]);
+            initialized = true;
+          } else {
+            setMessages(prev => prev.map(msg => msg.id === botMsgId ? { ...msg, content: fullText } : msg));
+          }
         }
       }
     } catch (err: any) {
