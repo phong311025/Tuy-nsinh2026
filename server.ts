@@ -28,19 +28,15 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(express.json());
-
-  // API routes FIRST
+  
+  // API routes
   app.post("/api/chat", async (req, res) => {
     try {
-      let apiKey = process.env.GEMINI_API_KEY;
+      const apiKey = process.env.GEMINI_API_KEY;
       
-      // Check for placeholder or invalid keys
-      const isPlaceholder = apiKey === "MY_GEMINI_API_KEY";
-      const isEmpty = !apiKey || apiKey.trim() === "";
-      
-      if (isPlaceholder || isEmpty) {
-        return res.status(400).json({ 
-          error: "Hệ thống đang sử dụng cấu hình mặc định chưa hợp lệ. Vui lòng vào **Settings > Secrets**, xóa secret `GEMINI_API_KEY` (nếu có giá trị là 'MY_GEMINI_API_KEY') để hệ thống tự động dùng bản miễn phí, hoặc nhập API Key chính chủ của bạn vào đó." 
+      if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
+        return res.status(401).json({ 
+          error: "Hệ thống chưa nhận diện được API Key từ AI Studio. Vui lòng vào **Settings > Secrets**, xóa secret `GEMINI_API_KEY` cũ (nếu có), rồi chọn lại 'AI Studio Free Tier' và tải lại trang." 
         });
       }
 
