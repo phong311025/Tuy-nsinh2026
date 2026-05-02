@@ -29,26 +29,26 @@ async function startServer() {
 
   app.use(express.json());
 
-  app.get("/api/debug", (req, res) => {
-    res.json({
-      apiKeyDefault: process.env.GEMINI_API_KEY,
-      apiKeyType: typeof process.env.GEMINI_API_KEY,
-    });
-  });
-
   // API routes FIRST
   app.post("/api/chat", async (req, res) => {
     try {
-      const apiKey = process.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        return res.status(500).json({ error: "Không tìm thấy GEMINI_API_KEY trên server." });
+      let apiKey = process.env.GEMINI_API_KEY;
+      
+      // Check for placeholder or invalid keys
+      const isPlaceholder = apiKey === "MY_GEMINI_API_KEY";
+      const isEmpty = !apiKey || apiKey.trim() === "";
+      
+      if (isPlaceholder || isEmpty) {
+        return res.status(400).json({ 
+          error: "Hệ thống đang sử dụng cấu hình mặc định chưa hợp lệ. Vui lòng vào **Settings > Secrets**, xóa secret `GEMINI_API_KEY` (nếu có giá trị là 'MY_GEMINI_API_KEY') để hệ thống tự động dùng bản miễn phí, hoặc nhập API Key chính chủ của bạn vào đó." 
+        });
       }
 
       const { history, userMsg } = req.body;
       const genAI = new GoogleGenAI({ apiKey });
 
       const responseStream = await genAI.models.generateContentStream({
-        model: 'gemini-3.1-pro-preview',
+        model: 'gemini-1.5-flash',
         contents: [...history, { role: 'user', parts: [{ text: userMsg }] }],
         config: {
           systemInstruction: systemInstruction,
