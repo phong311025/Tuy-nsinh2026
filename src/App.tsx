@@ -18,7 +18,7 @@ import {
 import { MAJORS, IELTS_CONVERSION, HSG_CONVERSION, Major, ADMISSION_METHODS } from './constants';
 
 import { Chatbot } from './Chatbot';
-import logo from './logo.png';
+import { hvtcLogoBase64 } from './logoBase64';
 
 export default function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -34,6 +34,7 @@ export default function App() {
   const [dt, setDt] = useState(0); 
 
   useEffect(() => {
+    const logo = hvtcLogoBase64;
     const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
     if (link) {
       link.href = logo;
@@ -122,7 +123,7 @@ export default function App() {
       <header className="bg-aof-teal text-white px-4 md:px-8 py-3 flex flex-col sm:flex-row justify-between items-center border-b-4 border-aof-gold shadow-md shrink-0 gap-4" id="header">
         <a href="https://xettuyen.hvtc.edu.vn" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-center sm:text-left hover:opacity-90 transition-opacity" id="header_left">
           <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-inner shrink-0 overflow-hidden text-aof-teal" id="logo">
-            <img src={logo} alt="HVTC Logo" className="w-full h-full object-contain p-0.5" />
+            <img src={hvtcLogoBase64} alt="HVTC Logo" className="w-full h-full object-contain p-0.5" />
           </div>
           <div>
             <h1 className="text-xl md:text-2xl font-black tracking-tight leading-none" id="header_title">HỌC VIỆN TÀI CHÍNH</h1>

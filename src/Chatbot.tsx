@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, User, Trash2, Copy, Check, Sparkles, HelpCircle, RefreshCw, Facebook } from 'lucide-react';
 import Markdown from 'react-markdown';
-import logo from './logo.png';
+import { hvtcLogoBase64 } from './logoBase64';
 
 interface ChatMessage {
   id: string;
@@ -146,7 +146,7 @@ ${KNOWLEDGE_BASE}
         <div className="bg-gradient-to-r from-indigo-700 to-indigo-600 text-white p-4 flex items-center justify-between shadow-md shrink-0">
           <div className="flex items-center gap-3">
             <a href="https://xettuyen.hvtc.edu.vn" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-white/20 hover:scale-105 transition-transform shrink-0 shadow-sm overflow-hidden" title="Trang Tuyển Sinh HVTC">
-              <img src={logo} alt="HVTC" className="w-full h-full object-contain p-0.5" />
+              <img src={hvtcLogoBase64} alt="HVTC" className="w-full h-full object-contain p-0.5" />
             </a>
             <div className="flex flex-col">
               <h3 className="font-bold text-sm tracking-wide">AOF Assistant</h3>
