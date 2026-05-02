@@ -13,7 +13,7 @@ interface ChatMessage {
 const INITIAL_MSG: ChatMessage = {
   id: 'welcome',
   role: 'bot',
-  content: 'Xin chào! Mình là AI Trợ lý Tuyển sinh Học viện Tài chính 2026 được phát triển bởi Ban phát thanh Học viện Tài chính. Mình có thể giúp gì cho bạn?',
+  content: 'Xin chào! Mình là AI Trợ lý Tuyển sinh Học viện Tài chính 2026. Mình có thể giúp gì cho bạn?',
   timestamp: Date.now()
 };
 
@@ -150,7 +150,7 @@ ${KNOWLEDGE_BASE}
             </a>
             <div className="flex flex-col">
               <h3 className="font-bold text-sm tracking-wide">AOF Assistant</h3>
-              <p className="text-[11px] text-indigo-100 font-medium">BPT Học viện Tài chính</p>
+              <p className="text-[11px] text-indigo-100 font-medium">Tuyển sinh 2026</p>
             </div>
           </div>
           <div className="flex items-center gap-1.5">
