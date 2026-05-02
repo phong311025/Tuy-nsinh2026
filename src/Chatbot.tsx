@@ -1,26 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot, User, Facebook, Phone } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
-import { KNOWLEDGE_BASE } from './knowledge';
-
-const systemInstruction = `
-Bạn là Trợ lý Ảo Tuyển sinh Học viện Tài chính (AOF) năm 2026.
-Bạn có nhiệm vụ cung cấp thông tin, hướng dẫn, và giải đáp TẤT CẢ các thắc mắc của thí sinh/phụ huynh liên quan đến quy chế tuyển sinh 2026 của Học viện Tài chính (HVTC).
-
-Dưới đây là TOÀN BỘ dữ liệu Tuyển Sinh 2026 chính thức của Học viện Tài chính. Bạn hãy sử dụng MỌI THÔNG TIN trong văn bản dưới đây để suy luận và trả lời câu hỏi một cách thông minh, chính xác nhất:
-
-\`\`\`
-${KNOWLEDGE_BASE}
-\`\`\`
-
-====== YÊU CẦU ĐỐI VỚI BẠN ======
-1. Dựa 100% vào thông tin được cung cấp ở trên để trả lời câu hỏi. Kết hợp thông tin để trả lời các tình huống cụ thể (ví dụ: tư vấn chọn nhóm xét tuyển, tính điểm quy đổi...).
-2. Thái độ: Thân thiện, tôn trọng, nhiệt tình, chuyên nghiệp. Xưng "mình/trợ lý" và gọi người dùng là "bạn/em". Trình bày rõ ràng, dùng bullet points nếu cần liệt kê.
-3. Nếu thí sinh hỏi cách tính điểm, vui lòng tính toán mẫu giúp thí sinh dựa trên công thức của từng Phương thức / Nhóm.
-4. CHÚ Ý QUAN TRỌNG: Chỉ khi nào bạn hoàn toàn KHÔNG CÓ BẤT CỨ THÔNG TIN NÀO trong dữ liệu để trả lời câu hỏi (ví dụ: điểm chuẩn năm ngoái, học phí, v.v.), thì bạn mới được sử dụng câu dưới đây:
-"Mình chưa được cập nhật thông tin này, vui lòng đặt câu hỏi tại Group Tư vấn tuyển sinh Học viện Tài chính hoặc gọi số Hotline 0961.481.086 hoặc 0967.684.086 để được hỗ trợ chính xác nhất nhé!"
-Nếu bạn đã tìm được thông tin để trả lời, thì TUYỆT ĐỐI KHÔNG dùng câu trên. KHÔNG ĐƯỢC chèn câu trên vào cuối một câu trả lời đã có thông tin. CÂU TRÊN CHỈ DÙNG làm câu trả lời DUY NHẤT khi bạn không biết gì cả.
-`;
 
 interface ChatMessage {
   id: string;
@@ -61,7 +40,6 @@ export function Chatbot() {
     setIsWaiting(true);
 
     try {
-      const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const botMsgId = (Date.now() + 1).toString();
 
       // Simple history mapping
@@ -72,20 +50,29 @@ export function Chatbot() {
           parts: [{ text: msg.content }]
         }));
 
-      const responseStream = await genAI.models.generateContentStream({
-        model: 'gemini-3.1-pro-preview',
-        contents: [...history, { role: 'user', parts: [{ text: userMsg.content }] }],
-        config: {
-          systemInstruction: systemInstruction,
-          temperature: 0.1,
-        }
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ history, userMsg: userMsg.content }),
       });
-      
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || res.statusText);
+      }
+
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("Stream not available");
+
+      const decoder = new TextDecoder("utf-8");
       let initialized = false;
       let fullText = '';
 
-      for await (const chunk of responseStream) {
-        const chunkText = chunk.text || '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        const chunkText = decoder.decode(value, { stream: true });
         fullText += chunkText;
         
         if (!initialized && fullText) {
@@ -113,7 +100,9 @@ export function Chatbot() {
       const errorMsg: ChatMessage = { 
         id: (Date.now() + 1).toString(), 
         role: 'bot', 
-        content: `Xin lỗi, có sự cố khi kết nối với trí tuệ nhân tạo. ${errorDetail ? '(Lỗi: ' + errorDetail.substring(0, 100) + '...)' : 'Vui lòng thử lại sau.'}` 
+        content: errorDetail.includes('GEMINI_API_KEY') 
+          ? `Lỗi cấu hình: ${errorDetail}` 
+          : `Xin lỗi, có sự cố khi kết nối với trí tuệ nhân tạo. ${errorDetail ? '(Lỗi: ' + errorDetail.substring(0, 150) + '...)' : 'Vui lòng thử lại sau.'}` 
       };
       setMessages(prev => [...prev, errorMsg]);
     } finally {
