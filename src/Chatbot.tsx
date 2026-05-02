@@ -61,65 +61,60 @@ export function Chatbot() {
     setIsWaiting(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const botMsgId = (Date.now() + 1).toString();
 
-      const rawHistory = messages.filter(m => m.id !== 'welcome' && m.id !== 'error').map(msg => ({
-        role: msg.role === 'bot' ? 'model' : 'user',
-        parts: [{ text: msg.content }]
-      }));
-      rawHistory.push({ role: 'user', parts: [{ text: userMsg.content }] });
+      // Simple history mapping
+      const history = messages
+        .filter(m => m.id !== 'welcome' && m.id !== 'error')
+        .map(msg => ({
+          role: msg.role === 'bot' ? 'model' : 'user',
+          parts: [{ text: msg.content }]
+        }));
 
-      const historyContents: any[] = [];
-      let currentRole: string | null = null;
-      let currentTextParts: string[] = [];
-      
-      for (const msg of rawHistory) {
-         if (msg.role === currentRole) {
-            currentTextParts.push(msg.parts[0].text);
-         } else {
-            if (currentRole) {
-               historyContents.push({ role: currentRole, parts: [{ text: currentTextParts.join('\n\n') }] });
-            }
-            currentRole = msg.role;
-            currentTextParts = [msg.parts[0].text];
-         }
-      }
-      if (currentRole) {
-         historyContents.push({ role: currentRole, parts: [{ text: currentTextParts.join('\n\n') }] });
-      }
-      
-      if (historyContents.length > 0 && historyContents[0].role !== 'user') {
-         historyContents.shift();
-      }
-
-      const responseStream = await ai.models.generateContentStream({
-        model: 'gemini-2.5-flash',
-        contents: historyContents,
+      const responseStream = await genAI.models.generateContentStream({
+        model: 'gemini-3.1-pro-preview',
+        contents: [...history, { role: 'user', parts: [{ text: userMsg.content }] }],
         config: {
           systemInstruction: systemInstruction,
-          temperature: 0.2,
+          temperature: 0.1,
         }
       });
       
       let initialized = false;
+      let fullText = '';
+
       for await (const chunk of responseStream) {
-        if (!initialized) {
+        const chunkText = chunk.text || '';
+        fullText += chunkText;
+        
+        if (!initialized && fullText) {
           setIsWaiting(false);
-          setMessages(prev => [...prev, { id: botMsgId, role: 'bot', content: chunk.text || '' }]);
+          setMessages(prev => [...prev, { id: botMsgId, role: 'bot', content: fullText }]);
           initialized = true;
-        } else {
+        } else if (initialized && chunkText) {
           setMessages(prev => 
             prev.map(msg => 
-              msg.id === botMsgId ? { ...msg, content: msg.content + (chunk.text || '') } : msg
+              msg.id === botMsgId ? { ...msg, content: fullText } : msg
             )
           );
         }
       }
     } catch (err: any) {
-      console.error("Gemini API Error:", err);
+      console.error("Gemini API Error details:", err);
       setIsWaiting(false);
-      const errorMsg: ChatMessage = { id: (Date.now() + 1).toString(), role: 'bot', content: `Xin lỗi, hệ thống đang bận. Vui lòng thử lại sau. ${err?.message ? '(Lỗi: ' + err.message + ')' : ''}` };
+      // Detailed error for debugging purposes since user is having issues
+      let errorDetail = "";
+      if (err instanceof Error) {
+        errorDetail = err.message;
+      } else if (typeof err === 'object') {
+        errorDetail = JSON.stringify(err);
+      }
+      const errorMsg: ChatMessage = { 
+        id: (Date.now() + 1).toString(), 
+        role: 'bot', 
+        content: `Xin lỗi, có sự cố khi kết nối với trí tuệ nhân tạo. ${errorDetail ? '(Lỗi: ' + errorDetail.substring(0, 100) + '...)' : 'Vui lòng thử lại sau.'}` 
+      };
       setMessages(prev => [...prev, errorMsg]);
     } finally {
       setIsLoading(false);
