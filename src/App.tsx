@@ -81,8 +81,8 @@ export default function App() {
     const achieveScore = getAchievementScore();
 
     if (pt2Group === 'N1') {
-      if (['0', '5.5', '6.0', '6.5', 'Ba Tỉnh', 'Nhì Tỉnh', 'Nhất Tỉnh/Khuyến Khích QG'].includes(achievement)) {
-        return 0; // Not allowed to use PT2 N1 without IELTS >= 7.0 or HSG
+      if (['0', '5.5', '6.0', '6.5', 'Ba Tỉnh', 'Nhì Tỉnh'].includes(achievement)) {
+        return 0; // Not allowed to use PT2 N1 without IELTS >= 7.0 or Nhất Tỉnh/KKQG
       }
       rawScore = hocba.toan + hocba.maxOther + achieveScore;
     } else if (pt2Group === 'N2') {
@@ -285,11 +285,11 @@ export default function App() {
                   <optgroup label="Giải HSG">
                     <option value="Ba Tỉnh" disabled={method === 'PT2' && pt2Group === 'N1'}>Giải Ba Tỉnh/TP (9.0)</option>
                     <option value="Nhì Tỉnh" disabled={method === 'PT2' && pt2Group === 'N1'}>Giải Nhì Tỉnh/TP (9.5)</option>
-                    <option value="Nhất Tỉnh/Khuyến Khích QG" disabled={method === 'PT2' && pt2Group === 'N1'}>Giải Nhất Tỉnh / KK Quốc Gia (10.0)</option>
+                    <option value="Nhất Tỉnh/Khuyến Khích QG">Giải Nhất Tỉnh / KK Quốc Gia (10.0)</option>
                   </optgroup>
                 </select>
                 {method === 'PT2' && pt2Group === 'N1' && (
-                  <p className="text-[9px] text-orange-600 mt-2 font-medium">* Nhóm 1 yêu cầu Chứng chỉ Tiếng Anh tương đương IELTS 7.0 trở lên.</p>
+                  <p className="text-[9px] text-orange-600 mt-2 font-medium">* Nhóm 1 yêu cầu IELTS 7.0+ hoặc Giải Nhất Tỉnh/KK Quốc Gia.</p>
                 )}
               </div>
             )}
