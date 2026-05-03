@@ -35,15 +35,18 @@ export default function App() {
 
   useEffect(() => {
     const logo = hvtcLogoBase64;
-    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    const link = document.getElementById('dynamic-favicon') as HTMLLinkElement;
     if (link) {
       link.href = logo;
     } else {
       const newLink = document.createElement('link');
+      newLink.id = 'dynamic-favicon';
       newLink.rel = 'icon';
+      newLink.type = 'image/png';
       newLink.href = logo;
       document.head.appendChild(newLink);
     }
+    document.title = "Công cụ tính điểm xét tuyển HVTC 2026";
   }, []);
 
   const handleThpt = (key: string, value: string) => setThpt(p => ({ ...p, [key]: parseFloat(value) || 0 }));
@@ -307,7 +310,8 @@ export default function App() {
                     )}
                     {(pt2Group === 'N2' || pt2Group === 'N3') && (
                       <div className="col-span-2">
-                        <ScoreInput label="TBC Tổ hợp 3 môn cao nhất" value={hocba.max3} onChange={(v) => handleHocba('max3', v)} id="h_max3" />
+                        <ScoreInput label="ĐIỂM TBC HỌC TẬP 3 NĂM CAO NHẤT TỔ HỢP 3 MÔN TRONG TỔ HỢP XÉT TUYỂN THEO THANG 10" value={hocba.max3} onChange={(v) => handleHocba('max3', v)} id="h_max3" />
+                        <p className="text-[9px] text-slate-400 mt-0.5 font-medium italic">* Tính trung bình cộng 3 năm của tổ hợp 3 môn cao nhất trong các tổ hợp xét tuyển của Học viện.</p>
                       </div>
                     )}
                  </div>
@@ -371,7 +375,8 @@ export default function App() {
                 <thead className="sticky top-0 z-10">
                   <tr className="bg-slate-100/90 backdrop-blur-md text-[10px] text-slate-500 uppercase font-black text-left shadow-sm">
                     <th className="p-3 lg:p-4 border-b border-slate-200 whitespace-nowrap">Ngành / Chương trình (Mã XT)</th>
-                    <th className="p-3 lg:p-4 border-b border-slate-200 text-center whitespace-nowrap">Video</th>
+                    <th className="p-3 lg:p-4 border-b border-slate-200 text-center whitespace-nowrap">Tổ hợp</th>
+                    <th className="p-3 lg:p-4 border-b border-slate-200 text-center whitespace-nowrap">Clip giới thiệu</th>
                     <th className="p-3 lg:p-4 border-b border-slate-200 text-center whitespace-nowrap">CT 2025</th>
                     <th className="p-3 lg:p-4 border-b border-slate-200 text-center whitespace-nowrap bg-blue-50/50">CT 2026</th>
                     <th className="p-3 lg:p-4 border-b border-slate-200 text-center whitespace-nowrap">Điểm 2025</th>
@@ -391,13 +396,20 @@ export default function App() {
                           }`}>{major.group === 'CCQT' ? 'Định hướng CCQT' : 'Chuẩn (Đại trà)'}</span>
                         </div>
                       </td>
+                      <td className="p-3 lg:p-4 text-center align-middle whitespace-nowrap">
+                        <div className="flex flex-wrap justify-center gap-1 max-w-[120px] mx-auto">
+                          {major.combinations.map(kh => (
+                            <span key={kh} className="text-[8px] font-black bg-slate-100 text-slate-500 px-1 py-0.5 rounded shadow-sm border border-slate-200">{kh}</span>
+                          ))}
+                        </div>
+                      </td>
                       <td className="p-3 lg:p-4 text-center align-middle">
                         {major.links && major.links.length > 0 && (
                           <div className="flex flex-col gap-1.5 items-center justify-center">
                             {major.links.map((link, i) => (
                               <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[10px] font-bold bg-white text-red-600 px-2 py-1.5 rounded-md border border-red-200 hover:bg-red-50 hover:border-red-300 shadow-sm transition-all whitespace-nowrap" title={link.name}>
-                                <Youtube className="w-3.5 h-3.5" />
-                                <span>{link.name}</span>
+                                <Youtube className="w-3.5 h-3.5 shrink-0" />
+                                <span>Clip: {link.name.length > 20 ? link.name.substring(0, 15) + "..." : link.name}</span>
                               </a>
                             ))}
                           </div>
@@ -465,6 +477,13 @@ export default function App() {
                       </div>
                     </div>
 
+                    <div className="flex flex-wrap gap-1 mt-2 mb-2">
+                       <span className="text-[9px] font-black text-slate-400 uppercase mr-1">Tổ hợp xét tuyển:</span>
+                       {major.combinations.map(kh => (
+                         <span key={kh} className="text-[8px] font-bold bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200">{kh}</span>
+                       ))}
+                    </div>
+
                     <div className="grid grid-cols-2 gap-2 bg-slate-50/50 p-2.5 rounded-lg border border-slate-100 mt-1">
                       <div>
                         <div className="text-[10px] text-slate-500 font-semibold mb-0.5">Điểm xét vào</div>
@@ -493,12 +512,16 @@ export default function App() {
                       </div>
 
                       {major.links && major.links.length > 0 && (
-                          <div className="flex gap-1.5 items-center">
-                            {major.links.map((link, i) => (
-                              <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[10px] font-bold bg-white text-red-600 px-2 py-1 rounded border border-red-200 hover:bg-red-50 hover:border-red-300 transition-all shadow-sm" title={link.name}>
-                                <Youtube className="w-3.5 h-3.5" /> Video
-                              </a>
-                            ))}
+                          <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-slate-100">
+                            <span className="text-[9px] font-black text-slate-400 uppercase">Video Ngành:</span>
+                            <div className="flex flex-wrap gap-2">
+                              {major.links.map((link, i) => (
+                                <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 text-[10px] font-bold bg-red-50 text-red-600 px-3 py-2 rounded-lg border border-red-100 hover:bg-red-100 transition-all shadow-sm" title={link.name}>
+                                  <Youtube className="w-4 h-4 shrink-0" /> 
+                                  <span className="truncate max-w-[150px]">{link.name}</span>
+                                </a>
+                              ))}
+                            </div>
                           </div>
                       )}
                     </div>
