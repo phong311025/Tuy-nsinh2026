@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Bot, User, Trash2, Copy, Check, Sparkles, HelpCircle, RefreshCw, Facebook } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User, Trash2, Copy, Check, Sparkles, HelpCircle, RefreshCw, Facebook, Maximize2, Minimize2 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import { hvtcLogoBase64 } from './logoBase64';
 
@@ -29,6 +29,7 @@ export function Chatbot({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (v:
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -141,7 +142,13 @@ ${KNOWLEDGE_BASE}
       </button>
 
       <div 
-        className={`fixed bottom-0 right-0 sm:bottom-24 sm:right-6 w-full sm:w-[400px] h-full sm:h-[600px] sm:max-h-[calc(100vh-120px)] bg-white sm:rounded-2xl shadow-2xl z-50 flex flex-col transform transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-right sm:overflow-hidden ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}
+        className={`fixed z-50 flex flex-col transform transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-right sm:overflow-hidden bg-white shadow-2xl ${
+          isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'
+        } ${
+          isExpanded 
+            ? 'inset-4 sm:inset-10 w-auto sm:w-auto h-auto sm:h-auto max-h-none sm:max-h-none rounded-2xl' 
+            : 'bottom-0 right-0 sm:bottom-24 sm:right-6 w-full sm:w-[400px] h-full sm:h-[600px] sm:max-h-[calc(100vh-120px)] sm:rounded-2xl'
+        }`}
       >
         <div className="bg-gradient-to-r from-indigo-700 to-indigo-600 text-white p-4 flex items-center justify-between shadow-md shrink-0">
           <div className="flex items-center gap-3">
@@ -157,6 +164,9 @@ ${KNOWLEDGE_BASE}
             <a href="https://www.facebook.com/groups/tuyensinhhvtc" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/20 rounded-full transition-all hover:scale-110" title="Group Tư vấn Tuyển sinh">
               <Facebook className="w-4 h-4" />
             </a>
+            <button onClick={() => setIsExpanded(!isExpanded)} className="p-2 hover:bg-white/20 rounded-full transition-colors hidden sm:block" title={isExpanded ? "Thu nhỏ" : "Phóng to"}>
+              {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            </button>
             <button onClick={clearChat} className="p-2 hover:bg-white/20 rounded-full transition-colors" title="Bắt đầu lại">
               <RefreshCw className="w-4 h-4" />
             </button>
@@ -265,7 +275,7 @@ ${KNOWLEDGE_BASE}
       {isOpen && (
         <div 
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-40 sm:hidden"
+          className={`fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'sm:hidden'}`}
         />
       )}
     </>
