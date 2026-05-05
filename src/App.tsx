@@ -16,6 +16,7 @@ import {
   Phone
 } from 'lucide-react';
 import { MAJORS, IELTS_CONVERSION, HSG_CONVERSION, Major, ADMISSION_METHODS } from './constants';
+import { Analytics } from '@vercel/analytics/react';
 
 import { Chatbot } from './Chatbot';
 import { hvtcLogoBase64 } from './logoBase64';
@@ -292,7 +293,7 @@ export default function App() {
                   </optgroup>
                 </select>
                 {method === 'PT2' && pt2Group === 'N1' && (
-                  <p className="text-[9px] text-orange-600 mt-2 font-medium">* Nhóm 1 yêu cầu IELTS 7.0+ hoặc Giải Nhất Tỉnh/KK Quốc Gia.</p>
+                  <p className="text-[9px] text-orange-600 mt-2 font-medium">* Nhóm 1 yêu c���u IELTS 7.0+ hoặc Giải Nhất Tỉnh/KK Quốc Gia.</p>
                 )}
               </div>
             )}
@@ -575,6 +576,7 @@ export default function App() {
         </div>
       </footer>
       <Chatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+      <Analytics />
     </div>
   );
 }
